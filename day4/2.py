@@ -3,10 +3,9 @@ with open("input.txt") as fp:
 
 count = 0
 h, w = len(data), len(data[0])
-for x in range(w):
-    for y in range(h):
-        is_valid = 0 < x < w - 1 and 0 < y < h - 1
-        if data[x][y] == "A" and is_valid:
+for x in range(1, w - 1):
+    for y in range(1, h - 1):
+        if data[x][y] == "A":
             top_left = data[x - 1][y - 1]
             top_right = data[x - 1][y + 1]
             bottom_left = data[x + 1][y - 1]
