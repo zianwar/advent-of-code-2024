@@ -44,6 +44,13 @@ class FragmentationTree:
         self.left = FragmentationTree(self.blocks[:mid], 0, self.depth + 1)
         self.right = FragmentationTree(self.blocks[mid:], mid, self.depth + 1)
 
+    def insert(self, file: File):
+        # You're on a leaf (no left or right)
+        #   - Update index, and capacity
+        # Recursive Check left and right, and recurse appropriately.
+        # As you recurse out, update capacity
+        pass
+
 
 @dataclass
 class Disk:
@@ -77,7 +84,7 @@ class Disk:
 with open("test.txt") as fp:
     disk = Disk.parse(fp.read())
 tree = FragmentationTree(disk.blocks, 0, 0)
-print(tree)
+pprint(tree)
 
-print(disk)
-pprint(list(disk.files()))
+# print(disk)
+# pprint(list(disk.files()))
