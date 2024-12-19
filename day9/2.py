@@ -3,6 +3,9 @@ from dataclasses import dataclass
 from pprint import pprint
 from typing import Self
 
+from rich import print
+from rich.tree import Tree
+
 os.system("clear")
 
 
@@ -23,7 +26,6 @@ class FragmentationTree:
     right: Self | None = None
 
     def __post_init__(self):
-        print(f"{self.depth * " "}{self.blocks}")
         self.capacity = len([b for b in self.blocks if b is None])
         if self.capacity in (0, len(self.blocks)):
             return
@@ -50,6 +52,14 @@ class FragmentationTree:
         # Recursive Check left and right, and recurse appropriately.
         # As you recurse out, update capacity
         pass
+
+    def render(self, tree: Tree = Tree("root")) -> Tree:
+        tree = tree.add(f"Node(index={self.index}, blocks={self.blocks})")
+        if self.left is not None:
+            self.left.render(tree)
+        if self.right is not None:
+            self.right.render(tree)
+        return tree
 
 
 @dataclass
@@ -84,7 +94,7 @@ class Disk:
 with open("test.txt") as fp:
     disk = Disk.parse(fp.read())
 tree = FragmentationTree(disk.blocks, 0, 0)
-pprint(tree)
+print(tree.render())
 
 # print(disk)
 # pprint(list(disk.files()))
