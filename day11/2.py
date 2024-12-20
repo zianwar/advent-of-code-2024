@@ -16,12 +16,9 @@ def blink(stone: int, count: int) -> int:
         return 1
     elif stone == 0:
         return blink(1, count - 1)
-    elif len(str(stone)) % 2 == 0:
-        s = str(stone)
-        mid = len(str(stone)) // 2
-        left = s[:mid]
-        right = s[mid:]
-        return blink(int(left), count - 1) + blink(int(right), count - 1)
+    elif (l := len(s := str(stone))) % 2 == 0:
+        mid = l // 2
+        return blink(int(s[:mid]), count - 1) + blink(int(s[mid:]), count - 1)
     else:
         return blink(stone * 2024, count - 1)
 
